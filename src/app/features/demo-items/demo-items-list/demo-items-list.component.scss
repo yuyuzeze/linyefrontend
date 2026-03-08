@@ -1,0 +1,21 @@
+.list-page {
+  padding: 1rem;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+th {
+  background: #f5f5f5;
+}
+.error {
+  color: #c00;
+}
+button {
+  margin-right: 0.5rem;
+}

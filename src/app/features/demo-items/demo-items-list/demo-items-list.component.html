@@ -1,0 +1,38 @@
+<div class="list-page">
+  <h1>Demo 项目列表</h1>
+  <p><a routerLink="/demoitems/new">新增</a></p>
+
+  @if (loading) {
+    <p>加载中...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (items.length === 0) {
+    <p>暂无数据，请点击「新增」添加。</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>名称</th>
+          <th>描述</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of items; track item.id) {
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description ?? '-' }}</td>
+            <td>{{ item.createdAt | date:'short' }}</td>
+            <td>
+              <button type="button" (click)="edit(item.id)">编辑</button>
+              <button type="button" (click)="delete(item.id)">删除</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
