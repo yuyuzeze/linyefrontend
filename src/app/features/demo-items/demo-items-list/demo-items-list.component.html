@@ -1,6 +1,28 @@
 <div class="list-page">
   <h1>Demo 项目列表</h1>
-  <p><a routerLink="/demoitems/new">新增</a></p>
+  <div class="toolbar">
+    <button mat-raised-button color="primary" routerLink="/demoitems/new">
+      新增
+    </button>
+
+    <app-name-filter [(value)]="nameFilter"></app-name-filter>
+
+    <mat-form-field appearance="outline">
+      <mat-label>创建日期</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="filterDate"
+        placeholder="选择创建日期"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-button type="button" (click)="clearFilters()">
+      清除筛选
+    </button>
+  </div>
 
   @if (loading) {
     <p>加载中...</p>
@@ -9,30 +31,45 @@
   } @else if (items.length === 0) {
     <p>暂无数据，请点击「新增」添加。</p>
   } @else {
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>名称</th>
-          <th>描述</th>
-          <th>创建时间</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of items; track item.id) {
-          <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.description ?? '-' }}</td>
-            <td>{{ item.createdAt | date:'short' }}</td>
-            <td>
-              <button type="button" (click)="edit(item.id)">编辑</button>
-              <button type="button" (click)="delete(item.id)">删除</button>
-            </td>
-          </tr>
-        }
-      </tbody>
+    <table mat-table [dataSource]="filteredItems" class="mat-elevation-z1 full-width-table">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let item">{{ item.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>名称</th>
+        <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>描述</th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.description ?? '-' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>创建时间</th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.createdAt | date: 'short' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>操作</th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-button color="primary" type="button" (click)="edit(item.id)">
+            编辑
+          </button>
+          <button mat-button color="warn" type="button" (click)="delete(item.id)">
+            删除
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   }
 </div>
