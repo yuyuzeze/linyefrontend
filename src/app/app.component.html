@@ -1,4 +1,43 @@
-<nav>
-  <a routerLink="/">Demo 列表</a>
-</nav>
-<router-outlet />
+<div class="app-shell">
+  <header class="app-header">
+    <div class="app-header__brand">
+      <div class="app-header__logo" aria-hidden="true">🌲</div>
+      <div class="app-header__titles">
+        <span class="app-header__system">林業部門基幹システム</span>
+        <span class="app-header__page">{{ title }}</span>
+      </div>
+    </div>
+    <div class="app-header__meta">
+      <span>照会日: {{ today | date: 'yyyy/MM/dd' }}</span>
+      <span>担当: 山田 太郎</span>
+      <div class="app-header__actions">
+        <button type="button" class="app-header__btn-icon" title="ヘルプ">?</button>
+        <button type="button" class="app-header__btn-icon" title="ログアウト">⎋</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="app-nav">
+    <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">ホーム</a>
+    <a routerLink="/blob-files" routerLinkActive="is-active">Blob ファイル</a>
+    <a routerLink="/csv-preview" routerLinkActive="is-active">CSV プレビュー</a>
+    <a routerLink="/demoitems/new" routerLinkActive="is-active">Demo 新規</a>
+  </nav>
+
+  <div class="app-breadcrumb">
+    <a routerLink="/">ホーム</a>
+    <span>/</span>
+    <span>{{ title }}</span>
+  </div>
+
+  <main class="app-main">
+    <router-outlet />
+  </main>
+
+  <footer class="app-footer">
+    <div class="app-footer__trees" aria-hidden="true"></div>
+    <div class="app-footer__bar">
+      © Agriculture, Forestry and Fisheries Credit Foundations. All Rights Reserved.
+    </div>
+  </footer>
+</div>

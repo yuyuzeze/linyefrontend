@@ -1,0 +1,26 @@
+.blob-page {
+  /* 余白は linye-page-panel 内で十分 */
+}
+
+.path {
+  margin-bottom: 0.75rem;
+  color: #616161;
+  font-size: 0.875rem;
+}
+
+.blob-page h3 {
+  margin: 1rem 0 0.35rem;
+  font-size: 0.95rem;
+  color: var(--linye-primary);
+}
+
+.blob-page .linye-table {
+  margin-bottom: 1rem;
+}
+
+.blob-page .linye-toolbar .search input {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--linye-input-border);
+  border-radius: var(--linye-radius-sm);
+}

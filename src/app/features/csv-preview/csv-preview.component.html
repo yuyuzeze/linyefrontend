@@ -1,0 +1,105 @@
+<div class="csv-page linye-page-panel">
+  <h1 class="linye-page-title">CSV プレビュー・申請書マッピング</h1>
+
+  <p class="source">{{ csvSourceInfo }}</p>
+
+  <div class="upload-row">
+    <label>
+      从本地选择 CSV：
+      <input type="file" accept=".csv,text/csv" (change)="onFileSelected($event)" />
+    </label>
+  </div>
+
+  @if (loading) {
+    <p>加载中...</p>
+  }
+  @if (!loading && error) {
+    <p class="error">{{ error }}</p>
+  }
+
+  @if (!loading && !error && rows.length) {
+    <div class="main">
+      <div class="left">
+        <h3>CSV 内容（选一行）</h3>
+        <div class="table-wrapper">
+          <table class="linye-table">
+            <thead>
+              <tr>
+                <th style="width:40px"></th>
+                @for (h of headers; track $index) {
+                  <th>{{ h || ('列' + ($index + 1)) }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of rows; track $index; let i = $index) {
+                <tr [class.selected]="i === selectedRowIndex">
+                  <td>
+                    <input
+                      type="radio"
+                      name="rowSelect"
+                      [value]="i"
+                      [checked]="i === selectedRowIndex"
+                      (change)="selectRow(i)"
+                    />
+                  </td>
+                  @for (cell of row; track $index) {
+                    <td>{{ cell }}</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="right">
+        <h3>申请书类型与映射结果</h3>
+
+        <div class="form-row">
+          <label>
+            申请书类型：
+            <select [(ngModel)]="selectedTypeId" (change)="onTypeChange()">
+              <option [ngValue]="null">（请选择）</option>
+              @for (t of applicationTypes; track t.id) {
+                <option [ngValue]="t.id">{{ t.code }} - {{ t.name }}</option>
+              }
+            </select>
+          </label>
+        </div>
+
+        @if (!selectedRow) {
+          <p>请先在左侧选择一行 CSV 数据。</p>
+        }
+
+        @if (selectedRow && !selectedTypeId) {
+          <p>已选中一行，请选择申请书类型。</p>
+        }
+
+        @if (mappedFields && selectedRow && selectedTypeId) {
+          <h4>映射结果（字段 → 值）</h4>
+          <table class="map-table linye-table">
+            <thead>
+              <tr>
+                <th>字段代码</th>
+                <th>值</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (kv of (mappedFields | keyvalue); track kv.key) {
+                <tr>
+                  <td>{{ kv.key }}</td>
+                  <td>{{ kv.value }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </div>
+    </div>
+  }
+
+  @if (!loading && !error && !rows.length) {
+    <p>当前没有 CSV 内容，请从 Blob 文件页选择 CSV 或在上方上传文件。</p>
+  }
+</div>

@@ -1,0 +1,79 @@
+<div class="blob-page linye-page-panel">
+  <h1 class="linye-page-title">Blob アップロード</h1>
+
+  <div class="toolbar linye-toolbar">
+    @if (canGoUp()) {
+      <button type="button" class="linye-btn-outline" (click)="goUp()">上一级</button>
+    }
+    <label class="search">
+      检索：
+      <input [(ngModel)]="searchText" placeholder="输入名称筛选" />
+    </label>
+  </div>
+
+  @if (loading) {
+    <p>加载中...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else {
+    <div class="path">
+      当前路径：{{ container || '默认容器' }} / {{ currentPrefix || '(根)' }}
+    </div>
+
+    @if (filteredPrefixes.length > 0) {
+      <h3>文件夹</h3>
+      <table class="linye-table">
+        <thead>
+          <tr>
+            <th style="width:40px"></th>
+            <th>名称</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of filteredPrefixes; track row.name) {
+            <tr>
+              <td>📁</td>
+              <td>
+                <button type="button" (click)="goToPrefix(row.name)">{{ row.name }}</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+    @if (filteredItems.length > 0) {
+      <h3>文件</h3>
+      <table class="linye-table">
+        <thead>
+          <tr>
+            <th style="width:40px"></th>
+            <th>名称</th>
+            <th style="width:140px">大小</th>
+            <th style="width:180px">修改时间</th>
+            <th style="width:140px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of filteredItems; track row.name) {
+            <tr>
+              <td>📄</td>
+              <td>{{ row.name }}</td>
+              <td>{{ row.length != null ? (row.length | number) + ' B' : '—' }}</td>
+              <td>{{ row.lastModified | date: 'yyyy-MM-dd HH:mm' }}</td>
+              <td>
+                @if (row.name.toLowerCase().endsWith('.csv')) {
+                  <button type="button" class="linye-btn-outline" (click)="openCsv(row.name)">打开 CSV</button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+    @if (filteredPrefixes.length === 0 && filteredItems.length === 0) {
+      <p>当前目录为空。</p>
+    }
+  }
+</div>
