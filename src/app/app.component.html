@@ -9,10 +9,19 @@
     </div>
     <div class="app-header__meta">
       <span>照会日: {{ today | date: 'yyyy/MM/dd' }}</span>
-      <span>担当: 山田 太郎</span>
+      <span *ngIf="departmentLabel">科室: {{ departmentLabel }}</span>
+      <span>担当: {{ userLabel }}</span>
       <div class="app-header__actions">
         <button type="button" class="app-header__btn-icon" title="ヘルプ">?</button>
-        <button type="button" class="app-header__btn-icon" title="ログアウト">⎋</button>
+        <button
+          *ngIf="authEnabled"
+          type="button"
+          class="app-header__btn-icon"
+          title="ログアウト"
+          (click)="logout()"
+        >
+          ⎋
+        </button>
       </div>
     </div>
   </header>
