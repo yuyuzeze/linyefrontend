@@ -12,5 +12,11 @@ export const environment: AppEnvironment = {
     redirectUri: 'http://localhost:4200',
     postLogoutRedirectUri: 'http://localhost:4200',
     apiScopes: []
+  },
+  logging: {
+    consoleEnabled: true,
+    reportToApi: true,
+    reportMinLevel: 'error',
+    clientLogPath: '/client-log'
   }
 };

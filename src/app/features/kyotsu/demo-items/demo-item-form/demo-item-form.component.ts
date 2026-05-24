@@ -3,8 +3,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DemoItemService } from '../../../core/services/demo-item.service';
-import { CreateDemoItem, UpdateDemoItem } from '../../../core/models/demo-item.model';
+import { DemoItemService } from '../../../../core/services/demo-item.service';
+import { CreateDemoItem, UpdateDemoItem } from '../../../../core/models/demo-item.model';
 
 @Component({
   selector: 'app-demo-item-form',
@@ -45,7 +45,7 @@ export class DemoItemFormComponent implements OnInit {
         this.loading = false;
       },
       error: (err: HttpErrorResponse) => {
-        this.error = err.message || '加载失败';
+        this.error = err.message || '読み込みに失敗しました。';
         this.loading = false;
       }
     });
@@ -54,7 +54,7 @@ export class DemoItemFormComponent implements OnInit {
   submit(): void {
     this.error = null;
     if (!this.name.trim()) {
-      this.error = '请输入名称';
+      this.error = '名称を入力してください。';
       return;
     }
     this.loading = true;
@@ -64,10 +64,10 @@ export class DemoItemFormComponent implements OnInit {
       this.service.update(this.id, dto as UpdateDemoItem).subscribe({
         next: () => {
           this.loading = false;
-          this.router.navigate(['/']);
+          this.router.navigate(['/kyotsu']);
         },
         error: (err: HttpErrorResponse) => {
-          this.error = err.message || '更新失败';
+          this.error = err.message || '更新に失敗しました。';
           this.loading = false;
         }
       });
@@ -75,10 +75,10 @@ export class DemoItemFormComponent implements OnInit {
       this.service.create(dto as CreateDemoItem).subscribe({
         next: () => {
           this.loading = false;
-          this.router.navigate(['/']);
+          this.router.navigate(['/kyotsu']);
         },
         error: (err: HttpErrorResponse) => {
-          this.error = err.message || '创建失败';
+          this.error = err.message || '作成に失敗しました。';
           this.loading = false;
         }
       });

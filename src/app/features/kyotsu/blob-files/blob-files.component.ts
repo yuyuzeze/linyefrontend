@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BlobApiService, BlobItemDto, BlobListResultDto } from '../../core/services/blob-api.service';
+import { BlobApiService, BlobItemDto, BlobListResultDto } from '../../../core/services/blob-api.service';
 
 @Component({
   selector: 'app-blob-files',
@@ -44,7 +44,7 @@ export class BlobFilesComponent implements OnInit {
         this.loading = false;
       },
       error: err => {
-        this.error = err?.message ?? '加载失败';
+        this.error = err?.message ?? '読み込みに失敗しました。';
         this.loading = false;
       }
     });
@@ -82,7 +82,7 @@ export class BlobFilesComponent implements OnInit {
   }
 
   openCsv(blobName: string): void {
-    this.router.navigate(['/csv-preview'], {
+    this.router.navigate(['/kyotsu/csv-preview'], {
       queryParams: { container: this.container || undefined, blobName }
     });
   }

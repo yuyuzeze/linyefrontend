@@ -18,7 +18,7 @@ export function msalBootstrapFactory(instance: IPublicClientApplication): () => 
         });
         return;
       } catch {
-        // fall through to ssoSilent or interactive login via guard
+        // ssoSilent またはガード経由の対話ログインへフォールスルー
       }
     }
 
@@ -29,7 +29,7 @@ export function msalBootstrapFactory(instance: IPublicClientApplication): () => 
     try {
       await instance.ssoSilent({ scopes: environment.auth.apiScopes });
     } catch (err) {
-      console.warn('ssoSilent failed; user may need interactive login.', err);
+      console.warn('ssoSilent に失敗しました。対話ログインが必要な場合があります。', err);
     }
   };
 }

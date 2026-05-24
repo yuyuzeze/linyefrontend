@@ -12,6 +12,7 @@ import { MsalService } from '@azure/msal-angular';
 import { filter } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { AuthContextService } from './core/services/auth-context.service';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly authContext: AuthContextService,
+    readonly loading: LoadingService,
     @Optional() private readonly msalService: MsalService | null
   ) {}
 

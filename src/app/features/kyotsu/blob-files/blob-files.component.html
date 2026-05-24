@@ -3,25 +3,25 @@
 
   <div class="toolbar linye-toolbar">
     @if (canGoUp()) {
-      <button type="button" class="linye-btn-outline" (click)="goUp()">上一级</button>
+      <button type="button" class="linye-btn-outline" (click)="goUp()">一つ上の階層</button>
     }
     <label class="search">
-      检索：
-      <input [(ngModel)]="searchText" placeholder="输入名称筛选" />
+      検索：
+      <input [(ngModel)]="searchText" placeholder="名称で絞り込み" />
     </label>
   </div>
 
   @if (loading) {
-    <p>加载中...</p>
+    <p>読み込み中...</p>
   } @else if (error) {
     <p class="error">{{ error }}</p>
   } @else {
     <div class="path">
-      当前路径：{{ container || '默认容器' }} / {{ currentPrefix || '(根)' }}
+      現在のパス：{{ container || '既定コンテナ' }} / {{ currentPrefix || '(ルート)' }}
     </div>
 
     @if (filteredPrefixes.length > 0) {
-      <h3>文件夹</h3>
+      <h3>フォルダ</h3>
       <table class="linye-table">
         <thead>
           <tr>
@@ -43,14 +43,14 @@
     }
 
     @if (filteredItems.length > 0) {
-      <h3>文件</h3>
+      <h3>ファイル</h3>
       <table class="linye-table">
         <thead>
           <tr>
             <th style="width:40px"></th>
             <th>名称</th>
-            <th style="width:140px">大小</th>
-            <th style="width:180px">修改时间</th>
+            <th style="width:140px">サイズ</th>
+            <th style="width:180px">更新日時</th>
             <th style="width:140px">操作</th>
           </tr>
         </thead>
@@ -63,7 +63,7 @@
               <td>{{ row.lastModified | date: 'yyyy-MM-dd HH:mm' }}</td>
               <td>
                 @if (row.name.toLowerCase().endsWith('.csv')) {
-                  <button type="button" class="linye-btn-outline" (click)="openCsv(row.name)">打开 CSV</button>
+                  <button type="button" class="linye-btn-outline" (click)="openCsv(row.name)">CSV を開く</button>
                 }
               </td>
             </tr>
@@ -73,7 +73,7 @@
     }
 
     @if (filteredPrefixes.length === 0 && filteredItems.length === 0) {
-      <p>当前目录为空。</p>
+      <p>現在のディレクトリは空です。</p>
     }
   }
 </div>

@@ -5,13 +5,13 @@
 
   <div class="upload-row">
     <label>
-      从本地选择 CSV：
+      ローカルから CSV を選択：
       <input type="file" accept=".csv,text/csv" (change)="onFileSelected($event)" />
     </label>
   </div>
 
   @if (loading) {
-    <p>加载中...</p>
+    <p>読み込み中...</p>
   }
   @if (!loading && error) {
     <p class="error">{{ error }}</p>
@@ -20,7 +20,7 @@
   @if (!loading && !error && rows.length) {
     <div class="main">
       <div class="left">
-        <h3>CSV 内容（选一行）</h3>
+        <h3>CSV 内容（1 行を選択）</h3>
         <div class="table-wrapper">
           <table class="linye-table">
             <thead>
@@ -54,13 +54,13 @@
       </div>
 
       <div class="right">
-        <h3>申请书类型与映射结果</h3>
+        <h3>申請書種別とマッピング結果</h3>
 
         <div class="form-row">
           <label>
-            申请书类型：
+            申請書種別：
             <select [(ngModel)]="selectedTypeId" (change)="onTypeChange()">
-              <option [ngValue]="null">（请选择）</option>
+              <option [ngValue]="null">（選択してください）</option>
               @for (t of applicationTypes; track t.id) {
                 <option [ngValue]="t.id">{{ t.code }} - {{ t.name }}</option>
               }
@@ -69,20 +69,20 @@
         </div>
 
         @if (!selectedRow) {
-          <p>请先在左侧选择一行 CSV 数据。</p>
+          <p>先に左側で CSV データの 1 行を選択してください。</p>
         }
 
         @if (selectedRow && !selectedTypeId) {
-          <p>已选中一行，请选择申请书类型。</p>
+          <p>1 行を選択しました。申請書種別を選択してください。</p>
         }
 
         @if (mappedFields && selectedRow && selectedTypeId) {
-          <h4>映射结果（字段 → 值）</h4>
+          <h4>マッピング結果（フィールド → 値）</h4>
           <table class="map-table linye-table">
             <thead>
               <tr>
-                <th>字段代码</th>
-                <th>值</th>
+                <th>フィールドコード</th>
+                <th>値</th>
               </tr>
             </thead>
             <tbody>
@@ -100,6 +100,6 @@
   }
 
   @if (!loading && !error && !rows.length) {
-    <p>当前没有 CSV 内容，请从 Blob 文件页选择 CSV 或在上方上传文件。</p>
+    <p>CSV 内容がありません。Blob ファイル画面で CSV を選択するか、上からファイルをアップロードしてください。</p>
   }
 </div>

@@ -10,10 +10,10 @@ import { MatInputModule } from '@angular/material/input';
   imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule],
   template: `
     <mat-form-field appearance="outline" class="name-filter">
-      <mat-label>名称筛选</mat-label>
+      <mat-label>名称で絞り込み</mat-label>
       <input
         matInput
-        placeholder="输入名称关键字"
+        placeholder="名称キーワードを入力"
         [(ngModel)]="value"
         (ngModelChange)="valueChange.emit($event)"
       />

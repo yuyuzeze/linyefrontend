@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BlobApiService } from '../../core/services/blob-api.service';
-import { ApplicationTypeDto, ApplicationTypeService } from '../../core/services/application-type.service';
+import { BlobApiService } from '../../../core/services/blob-api.service';
+import { ApplicationTypeDto, ApplicationTypeService } from '../../../core/services/application-type.service';
 
 @Component({
   selector: 'app-csv-preview',
@@ -40,10 +40,10 @@ export class CsvPreviewComponent implements OnInit {
       this.container = q['container'];
       this.blobName = q['blobName'];
       if (this.blobName) {
-        this.csvSourceInfo = `来自 Blob: ${this.container ?? '(默认容器)'} / ${this.blobName}`;
+        this.csvSourceInfo = `Blob から: ${this.container ?? '(既定コンテナ)'} / ${this.blobName}`;
         this.loadCsvFromBlob();
       } else {
-        this.csvSourceInfo = '请从 Blob 文件页选择 CSV，或在下方手动上传';
+        this.csvSourceInfo = 'Blob ファイル画面で CSV を選択するか、下から手動アップロードしてください。';
       }
     });
 
@@ -64,7 +64,7 @@ export class CsvPreviewComponent implements OnInit {
         this.loading = false;
       },
       error: err => {
-        this.error = err?.message ?? '加载 CSV 失败';
+        this.error = err?.message ?? 'CSV の読み込みに失敗しました。';
         this.loading = false;
       }
     });
@@ -77,7 +77,7 @@ export class CsvPreviewComponent implements OnInit {
 
     this.container = undefined;
     this.blobName = file.name;
-    this.csvSourceInfo = `来自本地文件: ${file.name}`;
+    this.csvSourceInfo = `ローカルファイル: ${file.name}`;
     this.loading = true;
     this.error = null;
     file
@@ -87,7 +87,7 @@ export class CsvPreviewComponent implements OnInit {
         this.loading = false;
       })
       .catch(err => {
-        this.error = (err as Error).message ?? '读取 CSV 失败';
+        this.error = (err as Error).message ?? 'CSV の読み取りに失敗しました。';
         this.loading = false;
       });
   }

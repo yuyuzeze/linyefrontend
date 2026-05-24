@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DemoItemService } from '../../../core/services/demo-item.service';
-import { DemoItem } from '../../../core/models/demo-item.model';
+import { DemoItemService } from '../../../../core/services/demo-item.service';
+import { DemoItem } from '../../../../core/models/demo-item.model';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -58,13 +58,17 @@ export class DemoItemsListComponent implements OnInit {
         this.loading = false;
       },
       error: (err: HttpErrorResponse) => {
-        this.error = err.message || '加载失败';
+        this.error = err.message || '読み込みに失敗しました。';
         this.loading = false;
       }
     });
   }
 
   get filteredItems(): DemoItem[] {
+    if (!Array.isArray(this.items)) {
+      return [];
+    }
+
     return this.items.filter(item => {
       const matchName =
         !this.nameFilter ||
@@ -84,14 +88,14 @@ export class DemoItemsListComponent implements OnInit {
   }
 
   delete(id: number): void {
-    if (!confirm('确定删除此项？')) return;
+    if (!confirm('この項目を削除しますか？')) return;
     this.service.delete(id).subscribe({
       next: () => this.loadItems(),
-      error: (err: HttpErrorResponse) => this.error = err.message || '删除失败'
+      error: (err: HttpErrorResponse) => this.error = err.message || '削除に失敗しました。'
     });
   }
 
   edit(id: number): void {
-    this.router.navigate(['/demoitems', 'edit', id]);
+    this.router.navigate(['/kyotsu', 'demoitems', 'edit', id]);
   }
 }

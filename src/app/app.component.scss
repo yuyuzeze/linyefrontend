@@ -8,3 +8,13 @@
 router-outlet + * {
   display: block;
 }
+
+.app-loading {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #c8d6c8;
+  border-radius: 4px;
+  color: #2d4a2d;
+  font-size: 0.875rem;
+}

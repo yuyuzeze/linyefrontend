@@ -12,5 +12,11 @@ export const environment: AppEnvironment = {
     redirectUri: 'https://linyedemo-d3epf9hearafhdg5.japaneast-01.azurewebsites.net/',
     postLogoutRedirectUri: 'https://linyedemo-d3epf9hearafhdg5.japaneast-01.azurewebsites.net/',
     apiScopes: ['api://<API_APP_CLIENT_ID>/access_as_user']
+  },
+  logging: {
+    consoleEnabled: false,
+    reportToApi: true,
+    reportMinLevel: 'error',
+    clientLogPath: '/client-log'
   }
 };

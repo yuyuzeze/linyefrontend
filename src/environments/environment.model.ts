@@ -13,4 +13,5 @@ export interface AppEnvironment {
   production: boolean;
   apiUrl: string;
   auth: AuthEnvironment;
+  logging: import('./logging.model').LoggingEnvironment;
 }
