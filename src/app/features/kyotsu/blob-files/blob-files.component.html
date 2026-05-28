@@ -51,7 +51,6 @@
             <th>名称</th>
             <th style="width:140px">サイズ</th>
             <th style="width:180px">更新日時</th>
-            <th style="width:140px">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -61,11 +60,6 @@
               <td>{{ row.name }}</td>
               <td>{{ row.length != null ? (row.length | number) + ' B' : '—' }}</td>
               <td>{{ row.lastModified | date: 'yyyy-MM-dd HH:mm' }}</td>
-              <td>
-                @if (row.name.toLowerCase().endsWith('.csv')) {
-                  <button type="button" class="linye-btn-outline" (click)="openCsv(row.name)">CSV を開く</button>
-                }
-              </td>
             </tr>
           }
         </tbody>

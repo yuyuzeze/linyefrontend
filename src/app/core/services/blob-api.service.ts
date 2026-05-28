@@ -30,15 +30,4 @@ export class BlobApiService {
     }
     return this.http.get<BlobListResultDto>(this.baseUrl, { params });
   }
-
-  getContent(container: string | undefined, blobName: string): Observable<Blob> {
-    let params = new HttpParams().set('blobName', blobName);
-    if (container) {
-      params = params.set('container', container);
-    }
-    return this.http.get(`${this.baseUrl}/content`, {
-      params,
-      responseType: 'blob'
-    });
-  }
 }

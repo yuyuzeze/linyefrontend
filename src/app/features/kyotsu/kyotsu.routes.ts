@@ -32,12 +32,5 @@ export const KYOTSU_ROUTES: Routes = [
       import('./blob-files/blob-files.component').then(m => m.BlobFilesComponent),
     data: { pageTitle: 'Blob ファイル' },
     canActivate: [authGuard, roleGuard]
-  },
-  {
-    path: 'csv-preview',
-    loadComponent: () =>
-      import('./csv-preview/csv-preview.component').then(m => m.CsvPreviewComponent),
-    data: { pageTitle: 'CSV プレビュー' },
-    canActivate: [authGuard, roleGuard]
   }
 ];

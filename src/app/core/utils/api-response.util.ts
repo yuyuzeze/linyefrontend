@@ -7,7 +7,7 @@ export function unwrapApiResponse<T>(response: ApiResponse<T>): T {
   }
 
   if (response.result === null || response.result === undefined) {
-    if (response.statusCode === 204) {
+    if (response.statusCode === 204 || response.statusCode === 200) {
       return null as T;
     }
     throw new Error(response.statusDetailMessage ?? 'API が空の結果を返しました。');

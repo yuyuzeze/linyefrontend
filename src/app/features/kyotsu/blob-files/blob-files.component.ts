@@ -81,12 +81,6 @@ export class BlobFilesComponent implements OnInit {
     });
   }
 
-  openCsv(blobName: string): void {
-    this.router.navigate(['/kyotsu/csv-preview'], {
-      queryParams: { container: this.container || undefined, blobName }
-    });
-  }
-
   canGoUp(): boolean {
     return !!this.currentPrefix?.replace(/\/$/, '').trim();
   }
